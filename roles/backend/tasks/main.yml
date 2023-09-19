@@ -2,16 +2,14 @@
   ansible.builtin.shell: type npm
   register: npm
 
-- name: Read npm
-  ansible.builtin.debug:
-    msg: "{{ npm }}"
-
 - name: install nodejs
   ansible.builtin.shell: curl -sl https://rpm.nodesource.com/setup_lts.x | bash
+  when: npm.rc !=o
 
 - name: install nodejs
   ansible.builtin.dnf:
     name: nodejs
+  when: npm.rc !=0
 
 - name: copy backend service file
   ansible.builtin.copy:
