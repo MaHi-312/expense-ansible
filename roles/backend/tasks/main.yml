@@ -4,12 +4,12 @@
 
 - name: install nodejs
   ansible.builtin.shell: curl -sl https://rpm.nodesource.com/setup_lts.x | bash
-  when: npm.rc !=o
+  when: npm.rc != 0
 
 - name: install nodejs
   ansible.builtin.dnf:
     name: nodejs
-  when: npm.rc !=0
+  when: npm.rc != 0
 
 - name: copy backend service file
   ansible.builtin.copy:
